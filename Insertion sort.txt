@@ -1,0 +1,43 @@
+#include <stdio.h>  
+
+int main() {
+    int prices[50];  
+    int n;            
+    int i, j, key;   
+
+   
+    printf("Enter number of products: ");
+    scanf("%d", &n);
+
+   
+    printf("Enter the prices of products:\n");
+    for (i = 0; i < n; i++) {
+        scanf("%d", &prices[i]);
+    }
+
+    
+    for (i = 1; i < n; i++) {
+        key = prices[i];     
+        j = i - 1;           
+
+       
+        while (j >= 0 && prices[j] > key) {
+            prices[j + 1] = prices[j]; 
+            j--;                      
+        }
+
+       
+        prices[j + 1] = key;
+    }
+
+    
+    printf("\nProduct prices in ascending order:\n");
+    for (i = 0; i < n; i++) {
+        printf("%d ", prices[i]);
+    }
+
+    printf("\n");   // Move to a new line	
+
+    return 0;       // End of program
+}
+

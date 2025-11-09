@@ -1,0 +1,157 @@
+
+#include <stdio.h>       
+#include <string.h>     
+
+#define MAX 100          
+struct Student {
+    int roll;                      
+    char name[50];                 
+    float marks[3];                  
+    float total;                   .
+    float average;               
+};n 
+
+struct Student db[MAX];       
+int count = 0;                   
+// Function Prototypes           
+void addStudent();              
+void displayStudents();
+void searchStudent();
+void modifyStudent();
+void sortStudents();
+
+int main() {
+    int choice;
+
+    do {
+                                 
+        printf("\n===== Student Result Management System =====\n");
+        printf("1. Add Student\n");
+        printf("2. Display Students\n");
+        printf("3. Search by Roll No\n");
+        printf("4. Modify Record\n");
+        printf("5. Sort by Performance\n");
+        printf("6. Exit\n");                    
+        printf("Enter your choice: ");         .
+        scanf("%d", &choice);
+
+        // Handle user choice
+        switch (choice) {
+            case 1: addStudent(); break;
+            case 2: displayStudents(); break;
+            case 3: searchStudent(); break;
+            case 4: modifyStudent(); break;
+            case 5: sortStudents(); break;
+            case 6: printf("Exiting program...\n"); break;
+            default: printf("Invalid choice. Try again.\n");
+        }
+    } while (choice != 6);                  
+
+    return 0;
+}
+
+// Add Student
+void addStudent() {
+    if (count >= MAX) {                       
+        printf("Database full!\n");         
+        return;
+    }
+
+    printf("Enter roll number: ");             
+    scanf("%d", &db[count].roll);         
+
+    printf("Enter name: ");
+    scanf(" %[^\n]", db[count].name);
+
+    db[count].total = 0;
+    for (int i = 0; i < 3; i++) {
+        printf("Enter marks for subject %d: ", i + 1);  
+        scanf("%f", &db[count].marks[i]);               
+        db[count].total += db[count].marks[i];
+    }
+
+    db[count].average = db[count].total / 3.0;         
+    count++;
+    printf("Student added successfully.\n");
+}
+
+void displayStudents() {
+    if (count == 0) {                             
+        printf("No students in database.\n");
+        return;
+    }
+      
+    printf("\n%-5s %-20s %-10s %-10s\n", "Roll", "Name", "Total", "Average");   
+     
+    for (int i = 0; i < count; i++) {
+        printf("%-5d %-20s %-10.2f %-10.2f\n",
+               db[i].roll, db[i].name, db[i].total, db[i].average);
+    }
+}
+
+// Search Student
+void searchStudent() {
+    int roll, found = 0;
+    printf("Enter roll number to search: ");  
+    scanf("%d", &roll);                      
+
+    for (int i = 0; i < count; i++) {
+        if (db[i].roll == roll) {
+            printf("Student found:\n");
+            printf("Name: %s\n", db[i].name);
+            printf("Total: %.2f\n", db[i].total);
+            printf("Average: %.2f\n", db[i].average);
+            found = 1;
+            break;
+        }
+    }
+
+    if (!found)
+        printf("Student not found.\n");       
+}
+
+// Modify Student
+void modifyStudent() {
+    int roll, found = 0;
+    printf("Enter roll number to modify: ");        
+   scanf("%d", &roll);
+
+    for (int i = 0; i < count; i++) {
+        if (db[i].roll == roll) {
+            printf("Enter new name: ");         
+            scanf(" %[^\n]", db[i].name);
+
+            db[i].total = 0;
+            for (int j = 0; j < 3; j++) {
+                printf("Enter new marks for subject %d: ", j + 1);
+                scanf("%f", &db[i].marks[j]);
+                db[i].total += db[i].marks[j];
+            }
+            db[i].average = db[i].total / 3.0;     
+            printf("Record updated.\n");
+            found = 1;
+            break;
+        }
+    }
+
+    if (!found)
+        printf("Student not found.\n");
+}
+
+void sortStudents() {
+    struct Student temp;                       
+
+
+    for (int i = 0; i < count - 1; i++) {
+        for (int j = 0; j < count - i - 1; j++) {
+            if (db[j].total < db[j + 1].total) {
+                temp = db[j];
+                db[j] = db[j + 1];
+                db[j + 1] = temp;                   
+            }
+        }
+    }
+
+    printf("Records sorted by performance.\n");
+}
+

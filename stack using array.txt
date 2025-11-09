@@ -1,0 +1,75 @@
+//Stack using Array (Static Implementation)
+
+
+Stack Implementation Using Array
+
+#include <stdio.h>
+
+#define SIZE 5   
+int stack[SIZE];   
+int top = -1;    
+
+void push(int parcel) {
+    if (top == SIZE - 1) {   
+        printf("Stack is FULL!\n");
+    } else {
+        top++;             
+        stack[top] = parcel; 
+        printf("Parcel %d added.\n", parcel);
+    }
+}
+
+void pop() {
+    if (top == -1) {  
+        printf("Stack is EMPTY!\n");
+    } else {
+        printf("Parcel %d removed.\n", stack[top]);
+        top--;        
+    }
+}
+
+void display() {
+    if (top == -1) {
+        printf("Stack is EMPTY!\n");
+    } else {
+        printf("Parcels in stack: ");
+        for (int i = top; i >= 0; i--) {   
+            printf("%d ", stack[i]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int choice, parcel;
+
+    while (1) {
+        printf("\n--- Parcel Handling System (Stack) ---\n");
+        printf("1. Add Parcel (Push)\n");
+        printf("2. Remove Parcel (Pop)\n");
+        printf("3. Display Parcels\n");
+        printf("4. Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        if (choice == 1) {
+            printf("Enter parcel number: ");
+            scanf("%d", &parcel);
+            push(parcel);
+        }
+        else if (choice == 2) {
+            pop();
+        }
+        else if (choice == 3) {
+            display();
+        }
+        else if (choice == 4) {
+            break;  // exit program
+        }
+        else {
+            printf("Invalid choice!\n");
+        }
+    }
+    return 0;
+}
+

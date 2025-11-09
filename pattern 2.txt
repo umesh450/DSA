@@ -1,0 +1,62 @@
+3. Pyramid with an asterisk:
+      
+#include <stdio.h>      
+
+int main(void) {
+    int rows = 5;       
+                  
+for (int i = 1; i <= rows; i++) {  
+
+                       
+        for (int sp = 0; sp < rows - i; sp++) {
+            printf(" ");
+        }
+
+                            
+        for (int j = 0; j < i; j++) {
+            printf("* ");        
+        }
+
+                               
+        printf("\n");     
+    }
+
+    return 0;               
+}
+_______________________________________________________________________________________________________________________________
+
+4. Pyramid using the alphabet:
+ 
+#include <stdio.h>  
+int main(void) {
+    int rows, i, j, space;
+    printf("Enter the number of rows (max 26): ");
+    scanf("%d", &rows);  
+    if (rows < 1 || rows > 26) {
+        printf("Invalid input. Rows must be between 1 and 26.\n");
+        return 1; 
+    }
+
+ for (i = 1; i <= rows; i++) {
+       
+        for (space = 1; space <= rows - i; space++) {
+            printf("  "); 
+        }
+
+        
+        
+for (j = 1; j <= i; j++) {
+            printf("%c ", 'A' + j - 1);
+        }
+
+     
+for (j = i - 1; j >= 1; j--) {
+            printf("%c ", 'A' + j - 1);
+        }
+
+        printf("\n");  
+    }
+
+    return 0;  
+}                                  
+  
