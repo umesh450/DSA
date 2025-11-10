@@ -1,0 +1,79 @@
+#include <stdio.h>
+#include <string.h>
+#define MAX 100
+struct Student {
+    int roll;
+    char name[50];
+    float marks[3];
+    float total;
+    float average;
+};
+struct Student db[MAX];
+int count = 0;
+void addStudent();
+void displayStudents();
+int main()
+{
+    int choice;
+    do{
+        printf("\n===== Student Result Management System =====\n");
+        printf("1. Add Student\n");
+        printf("2. Display Students\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1: addStudent();
+            break;
+            case 2: displayStudents();
+            break;
+            case 3: printf("Exiting program...\n");
+            break;
+            default: printf("Invalid choice. Try again.\n");
+        }
+    } while (choice != 3);
+    return 0;
+}
+
+// Add Student
+void addStudent()
+{
+    if (count >= MAX)
+    {
+        printf("Database full!\n");
+        return;
+    }
+    printf("Enter roll number: ");
+    scanf("%d", &db[count].roll);
+    printf("Enter name: ");
+    scanf(" %[^\n]", db[count].name);
+
+    db[count].total = 0;
+    for (int i = 0; i < 3; i++)
+    {
+        printf("Enter marks for subject %d: ", i + 1);
+        scanf("%f", &db[count].marks[i]);
+        db[count].total += db[count].marks[i];
+    }
+    db[count].average = db[count].total / 3.0;
+    count++;
+    printf("Student added successfully.\n");
+}
+
+void displayStudents()
+{
+    if (count == 0)
+    {
+        printf("No students in database.\n");
+        return;
+    }
+    printf("\n%-5s %-20s %-10s %-10s\n", "Roll", "Name", "Total", "Average");
+
+    for (int i = 0; i < count; i++)
+    {
+        printf("%-5d %-20s %-10.2f %-10.2f\n", db[i].roll, db[i].name, db[i].total, db[i].average);
+    }
+}
+
